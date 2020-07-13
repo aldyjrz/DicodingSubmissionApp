@@ -1,4 +1,4 @@
-package com.toi.dicodinggithub.api
+package com.toi.dicodinggithub.model
 
 import com.google.gson.annotations.SerializedName
 data class Users(

@@ -16,7 +16,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.toi.dicodinggithub.adapter.UsersAdapter
 import com.toi.dicodinggithub.api.ApiMain
 import com.toi.dicodinggithub.api.SearchResponse
-import com.toi.dicodinggithub.api.Users
+import com.toi.dicodinggithub.model.Users
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 
@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var builder: AlertDialog.Builder
     lateinit var dialog: AlertDialog
 
-    var app: BaseApp? = null
     lateinit var recyclerView: RecyclerView
     lateinit var mswipeRefreshLayout: SwipeRefreshLayout
 

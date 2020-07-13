@@ -1,5 +1,6 @@
 package com.toi.dicodinggithub.api
 
+import com.toi.dicodinggithub.model.Users
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

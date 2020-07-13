@@ -12,17 +12,16 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.toi.dicodinggithub.Detail
+import com.toi.dicodinggithub.DetailUserActivity
 import com.toi.dicodinggithub.R
-import com.toi.dicodinggithub.api.Users
-import com.toi.dicodinggithub.model.UserUrl
-import kotlinx.android.synthetic.main.item_news.view.*
+import com.toi.dicodinggithub.model.Users
+import kotlinx.android.synthetic.main.item_users.view.*
 
 
 class UsersAdapter(private val dataUsers: List<Users>) : RecyclerView.Adapter<UsersAdapter.CardViewViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewViewHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_news, parent, false)
+        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_users, parent, false)
         return CardViewViewHolder(view)
     }
 
@@ -41,12 +40,10 @@ class UsersAdapter(private val dataUsers: List<Users>) : RecyclerView.Adapter<Us
         holder.tvUserName.text = user.login
 
         holder.cardView.setOnClickListener {
-            val i = Intent(holder.itemView.context, Detail::class.java)
+            val i = Intent(holder.itemView.context, DetailUserActivity::class.java)
             Toast.makeText(holder.itemView.context, user.login, Toast.LENGTH_SHORT).show()
-            val userUrl = UserUrl(
-                user.login
-            )
-            i.putExtra("extra_url", userUrl)
+
+            i.putExtra("extra_url", user.login)
             holder.itemView.context.startActivity(i)
             //goto detailact
         }

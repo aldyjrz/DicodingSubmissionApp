@@ -7,10 +7,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    tools:context=".Detail">
+    tools:context=".DetailUserActivity">
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="200dp"
         app:cardCornerRadius="8dp"
         android:layout_margin="5dp"
         android:elevation="10dp"
@@ -24,38 +24,55 @@
             android:layout_gravity="center"
             android:layout_height="120dp"
             android:scaleType="centerCrop"
+            app:civ_border_color="#313131"
+            app:civ_border_width="2dp"
+            app:civ_circle_background_color="#313131"
             tools:src="@color/colorAccent" />
-
+        <TextView
+            android:id="@+id/tv_login_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center|bottom"
+            android:ellipsize="end"
+            android:gravity="center|bottom"
+            android:textColor="#8F3737"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:ignore="RtlCompat"
+            tools:text="@string/login_name" />
     </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp"
+        android:layout_margin="5dp"
+        android:elevation="10dp"
+        android:layout_below="@id/cardView_avatar"
+        android:id="@+id/cardView_detail"
+        android:layout_gravity="center"
+        tools:targetApi="lollipop">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/cardView"
+        android:id="@+id/linear"
         android:layout_margin="5dp"
         android:elevation="10dp"
         android:layout_below="@+id/cardView_avatar"
         tools:targetApi="lollipop"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_login_name"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:ellipsize="end"
 
-            android:textColor="#8F3737"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            tools:ignore="RtlCompat"
-            tools:text="@string/login_name" />
 
     <TextView
         android:id="@+id/tv_bio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textStyle="italic"
-        tools:text="Aldi Pranata" />
+        tools:text="Aldi Pranata"
+
+        android:drawableStart="@drawable/ic_account"
+        android:drawableLeft="@drawable/ic_account" />
 
 
     <TextView
@@ -64,25 +81,75 @@
         android:layout_height="wrap_content"
         android:textColor="#2e3047"
         android:textSize="14sp"
-        tools:text="BSH Team" />
+
+        android:drawableStart="@drawable/ic_company"
+
+        tools:text="BSH Team"
+        android:drawableLeft="@drawable/ic_company" />
 
     <TextView
         android:id="@+id/tv_blog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="Website"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:drawableLeft="@drawable/ic_blog"
+
+        android:drawableStart="@drawable/ic_blog" />
 
     <TextView
         android:id="@+id/tv_location"
-         android:layout_below="@id/tv_blog"
+        android:drawableLeft="@drawable/ic_location"
+        tools:text="Tokyo"
+        android:drawableStart="@drawable/ic_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="16dp"
+        app:cardCornerRadius="8dp"
+        android:layout_margin="5dp"
+        android:elevation="10dp"
+        android:layout_below="@id/cardView_detail"
+        android:id="@+id/cardView_follower"
         android:layout_gravity="center"
-        android:textAlignment="center" />
+        tools:targetApi="lollipop">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linear_2"
+            android:layout_margin="5dp"
+            android:elevation="10dp"
+            android:layout_below="@+id/linear"
+            tools:targetApi="lollipop"
+            android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_follower"
+            android:drawableLeft="@drawable/ic_follower"
+            tools:text="@string/Followers"
+            android:gravity="center"
+            android:drawableRight="@drawable/ic_right"
+            android:drawableStart="@drawable/ic_follower"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_right" />
+
+            <TextView
+                android:id="@+id/tv_following"
+                android:drawableLeft="@drawable/ic_following"
+                tools:text="@string/following"
+                android:gravity="center"
+                android:drawableRight="@drawable/ic_right"
+                android:drawableStart="@drawable/ic_following"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/ic_right" />
 
     </LinearLayout>
-    </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+ </RelativeLayout>
 
