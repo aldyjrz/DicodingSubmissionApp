@@ -71,8 +71,8 @@
         android:textStyle="italic"
         tools:text="Aldi Pranata"
 
-        android:drawableStart="@drawable/ic_account"
-        android:drawableLeft="@drawable/ic_account" />
+        android:drawableStart="@drawable/ic_code"
+        android:drawableLeft="@drawable/ic_code" />
 
 
     <TextView

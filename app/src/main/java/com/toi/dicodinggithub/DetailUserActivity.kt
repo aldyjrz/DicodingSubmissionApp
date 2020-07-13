@@ -3,9 +3,11 @@ package com.toi.dicodinggithub
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -13,7 +15,9 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.toi.dicodinggithub.api.ApiMain
+import com.toi.dicodinggithub.api.SearchResponse
 import com.toi.dicodinggithub.model.Users
+import com.toi.dicodinggithub.model.UsersProfile
 import kotlinx.android.synthetic.main.layout_user_detail.*
 import retrofit2.Call
 import retrofit2.Response
@@ -35,17 +39,20 @@ class DetailUserActivity : AppCompatActivity() {
         //show loading / progress dialog
         loading()
         //get parcelable username dari adapter
-        val usersUrl = intent. followersgetParcelableExtra(EXTRA_URL) as Users
-
+        val usersUrl = intent.getParcelableExtra("extra_url") as UsersProfile
         //memanggil fungsi untuk menampilkan detail profile dari github
-        getUser(usersUrl.url!!)
-
+        showpDialog()
+        getUser(usersUrl.login!!)
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     fun loading() {
         val builder = AlertDialog.Builder(this)
+        builder.setView(R.layout.layout_loading)
+
         builder.setCancelable(false)
         pDialog = builder.create()
+
         showpDialog()
     }
 
@@ -55,8 +62,8 @@ class DetailUserActivity : AppCompatActivity() {
        tv_company!!.text =  response.body()?.company
        tv_location!!.text = response.body()?.location
        tv_bio!!.text =  response.body()?.bio
-       tv_follower!!.text = response.body()?.followers.toString()
-       tv_following!!.text = response.body()?.following.toString()
+       tv_follower!!.text = "Followers ${response.body()?.followers}"
+       tv_following!!.text = "Following ${response.body()?.following}"
        tv_follower.setOnClickListener{
            Toast.makeText(applicationContext, response.body()?.followers.toString()+ "\n Followers", Toast.LENGTH_SHORT ).show()
        }

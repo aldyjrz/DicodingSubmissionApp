@@ -15,7 +15,9 @@ import com.bumptech.glide.request.RequestOptions
 import com.toi.dicodinggithub.DetailUserActivity
 import com.toi.dicodinggithub.R
 import com.toi.dicodinggithub.model.Users
+import com.toi.dicodinggithub.model.UsersProfile
 import kotlinx.android.synthetic.main.item_users.view.*
+import java.nio.file.attribute.UserPrincipal
 
 
 class UsersAdapter(private val dataUsers: List<Users>) : RecyclerView.Adapter<UsersAdapter.CardViewViewHolder>() {
@@ -42,8 +44,10 @@ class UsersAdapter(private val dataUsers: List<Users>) : RecyclerView.Adapter<Us
         holder.cardView.setOnClickListener {
             val i = Intent(holder.itemView.context, DetailUserActivity::class.java)
             Toast.makeText(holder.itemView.context, user.login, Toast.LENGTH_SHORT).show()
-
-            i.putExtra("extra_url", user.login)
+            val userUrl = UsersProfile(
+                user.login
+            )
+            i.putExtra("extra_url", userUrl)
             holder.itemView.context.startActivity(i)
             //goto detailact
         }
