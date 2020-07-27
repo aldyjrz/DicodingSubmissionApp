@@ -1,4 +1,4 @@
-package com.toi.dicodinggithub
+package com.toi.dicodinggithub.ui
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -14,10 +14,10 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import com.toi.dicodinggithub.R
 import com.toi.dicodinggithub.api.ApiMain
-import com.toi.dicodinggithub.api.SearchResponse
-import com.toi.dicodinggithub.model.Users
-import com.toi.dicodinggithub.model.UsersProfile
+import com.toi.dicodinggithub.data.Users
+import com.toi.dicodinggithub.data.UsersProfile
 import kotlinx.android.synthetic.main.layout_user_detail.*
 import retrofit2.Call
 import retrofit2.Response
@@ -37,7 +37,9 @@ class DetailUserActivity : AppCompatActivity() {
 
 
         //show loading / progress dialog
-        loading()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            loading()
+        }
         //get parcelable username dari adapter
         val usersUrl = intent.getParcelableExtra("extra_url") as UsersProfile
         //memanggil fungsi untuk menampilkan detail profile dari github

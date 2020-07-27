@@ -12,12 +12,11 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.toi.dicodinggithub.DetailUserActivity
 import com.toi.dicodinggithub.R
-import com.toi.dicodinggithub.model.Users
-import com.toi.dicodinggithub.model.UsersProfile
+import com.toi.dicodinggithub.data.Users
+import com.toi.dicodinggithub.data.UsersProfile
+import com.toi.dicodinggithub.ui.DetailUserActivity
 import kotlinx.android.synthetic.main.item_users.view.*
-import java.nio.file.attribute.UserPrincipal
 
 
 class UsersAdapter(private val dataUsers: List<Users>) : RecyclerView.Adapter<UsersAdapter.CardViewViewHolder>() {

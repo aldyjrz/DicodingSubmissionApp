@@ -12,8 +12,8 @@
         android:theme="@style/AppTheme">
         <uses-library android:name="org.apache.http.legacy" android:required="false"/>
 
-        <activity android:name=".DetailUserActivity"/>
-        <activity android:name=".MainActivity">
+        <activity android:name="ui.DetailUserActivity"/>
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
