@@ -2,6 +2,7 @@ package com.toi.dicodinggithub.adapter
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,12 +15,11 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.toi.dicodinggithub.R
 import com.toi.dicodinggithub.data.Users
-import com.toi.dicodinggithub.data.UsersProfile
 import com.toi.dicodinggithub.ui.DetailUserActivity
 import kotlinx.android.synthetic.main.item_users.view.*
 
 
-class UsersAdapter(private val dataUsers: List<Users>) : RecyclerView.Adapter<UsersAdapter.CardViewViewHolder>() {
+class UsersAdapter(private val dataUsers: ArrayList<Users>) : RecyclerView.Adapter<UsersAdapter.CardViewViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_users, parent, false)
@@ -29,27 +29,29 @@ class UsersAdapter(private val dataUsers: List<Users>) : RecyclerView.Adapter<Us
 
 
 
+
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: CardViewViewHolder, pos: Int) {
         val user = dataUsers[pos]
 
         Glide.with(holder.itemView.context)
-                .load(user.avatar_url)
-                .apply(RequestOptions().override(150, 220))
-                .into(holder.imgPhoto)
+            .load(user.avatar_url)
+            .apply(RequestOptions().override(150, 220))
+            .into(holder.imgPhoto)
 
-        holder.tvUserName.text = user.login
+        holder.tvUserName.text = user.login.toString()
 
         holder.cardView.setOnClickListener {
             val i = Intent(holder.itemView.context, DetailUserActivity::class.java)
-            Toast.makeText(holder.itemView.context, user.login, Toast.LENGTH_SHORT).show()
-            val userUrl = UsersProfile(
-                user.login
-            )
-            i.putExtra("extra_url", userUrl)
+            Toast.makeText(holder.itemView.context, user.login.toString(), Toast.LENGTH_SHORT).show()
+            val url = user.login
+            val person = Users(url = url
+           )
+
+            i.putExtra("url", person)
+            Log.d("jancok", person.toString())
             holder.itemView.context.startActivity(i)
-            //goto detailact
-        }
+         }
     }
 
     override fun getItemCount(): Int {

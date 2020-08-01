@@ -17,7 +17,6 @@ import com.bumptech.glide.request.target.Target
 import com.toi.dicodinggithub.R
 import com.toi.dicodinggithub.api.ApiMain
 import com.toi.dicodinggithub.data.Users
-import com.toi.dicodinggithub.data.UsersProfile
 import kotlinx.android.synthetic.main.layout_user_detail.*
 import retrofit2.Call
 import retrofit2.Response
@@ -27,9 +26,6 @@ class DetailUserActivity : AppCompatActivity() {
     var pDialog: AlertDialog? = null
 
 
-    companion object{
-        val EXTRA_URL: String = "extra_login"
-    }
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,11 +36,11 @@ class DetailUserActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             loading()
         }
-        //get parcelable username dari adapter
-        val usersUrl = intent.getParcelableExtra("extra_url") as UsersProfile
+         val usersUrl = intent.getParcelableExtra("url") as Users
         //memanggil fungsi untuk menampilkan detail profile dari github
         showpDialog()
-        getUser(usersUrl.login!!)
+        Log.d("jancok_url", usersUrl.toString())
+        getUser(usersUrl.url!!)
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)

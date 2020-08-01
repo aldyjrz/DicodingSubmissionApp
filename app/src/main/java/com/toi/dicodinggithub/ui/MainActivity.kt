@@ -1,6 +1,7 @@
 package com.toi.dicodinggithub.ui
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
@@ -10,17 +11,13 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.toi.dicodinggithub.R
 import com.toi.dicodinggithub.adapter.UsersAdapter
-import com.toi.dicodinggithub.model.MainViewModel
-
 import com.toi.dicodinggithub.api.ApiMain
 import com.toi.dicodinggithub.api.SearchResponse
 import com.toi.dicodinggithub.data.Users
+
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 
@@ -28,10 +25,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var builder: AlertDialog.Builder
     lateinit var dialog: AlertDialog
 
-
-    private var list = ArrayList<Users>()
-    private lateinit var mainViewModel : MainViewModel
-    fun initDialog(){
+      fun initDialog(){
         builder = AlertDialog.Builder(this)
         builder.setCancelable(false)
         // if you want user to wait for some process to finish,
@@ -47,8 +41,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initDialog()
-        mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MainViewModel::class.java)
-
         findUser()
      }
 
@@ -58,8 +50,37 @@ class MainActivity : AppCompatActivity() {
         recycleview.layoutManager = LinearLayoutManager(this)
         val cardViewHeroAdapter = UsersAdapter(list)
         recycleview!!.adapter = cardViewHeroAdapter
+        dialog.dismiss()
     }
 
+    fun getUser(context: Context, user: String){
+        dialog.show()
+
+        ApiMain().services.searchUser(user).enqueue(object :
+            retrofit2.Callback<SearchResponse> {
+            override fun onResponse(
+                call: Call<SearchResponse>,
+                response: retrofit2.Response<SearchResponse>
+            ) {
+                //Tulis code jika response sukses
+                Log.d("jancok", response.body()!!.users.toString())
+                showRecyclerCardView(response.body()!!.users)
+                dialog.dismiss()
+
+                if(response.code() == 200) {
+                    response.body()?.users?.let {
+                        showRecyclerCardView(it) //it return List<Team>
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
+                Log.d("jancok", call.toString()+t.toString())
+                Toast.makeText(context, "Pencarian Gagal Silahkan Refresh", Toast.LENGTH_SHORT).show()
+            }
+
+        })
+    }
     private fun findUser(){
 
         username_search.setInputType(InputType.TYPE_CLASS_TEXT);
@@ -68,9 +89,8 @@ class MainActivity : AppCompatActivity() {
             var handled = false
             if (actionId == KeyEvent.KEYCODE_ENTER) {
                 Log.d("search", username_search.text.toString())
-
-                mainViewModel.getUser(applicationContext, username_search.text.toString())
-                handled = true
+                getUser(applicationContext, username_search.text.toString())
+                 handled = true
             }
             handled
         }
@@ -87,7 +107,7 @@ class MainActivity : AppCompatActivity() {
                 //  val DRAWABLE_BOTTOM = 3
                 if (event.action == MotionEvent.ACTION_UP) {
                     if (event.rawX >= username_search.getRight() - username_search.getCompoundDrawables().get(DRAWABLE_RIGHT).getBounds().width()) {
-                        mainViewModel.getUser(applicationContext, username_search.text.toString())
+                         getUser(applicationContext, username_search.text.toString())
                         return true
                     }
                 }
