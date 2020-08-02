@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
@@ -49,8 +50,7 @@ class UsersAdapter(private val dataUsers: ArrayList<Users>) : RecyclerView.Adapt
            )
 
             i.putExtra("url", person)
-            Log.d("jancok", person.toString())
-            holder.itemView.context.startActivity(i)
+             holder.itemView.context.startActivity(i)
          }
     }
 
@@ -63,6 +63,6 @@ class UsersAdapter(private val dataUsers: ArrayList<Users>) : RecyclerView.Adapt
         //inisialisasi resource dengan id masing2
         var imgPhoto: ImageView = itemView.avatar_search
         var tvUserName: TextView = itemView.username_search
-        var cardView: CardView = itemView.cardView
+        var cardView: LinearLayout = itemView.layout_keterangan
     }
 }

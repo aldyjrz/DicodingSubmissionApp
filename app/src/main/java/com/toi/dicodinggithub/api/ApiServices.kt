@@ -19,5 +19,19 @@ interface ApiServices {
     ): Call<Users>
 
 
+    @GET("users/{username}/followers")
+    open fun getFollowers(
+        @Path(
+            value = "username",
+            encoded = true
+        ) username: String?
+    ): Call<Users>
 
+    @GET("users/{username}/following")
+    open fun getFollowing(
+        @Path(
+            value = "username",
+            encoded = true
+        ) username: String?
+    ): Call<Users>
 }

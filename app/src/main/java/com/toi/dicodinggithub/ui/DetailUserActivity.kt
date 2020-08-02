@@ -14,7 +14,8 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.toi.dicodinggithub.R
+ import com.toi.dicodinggithub.R
+import com.toi.dicodinggithub.adapter.SectionsPagerAdapter
 import com.toi.dicodinggithub.api.ApiMain
 import com.toi.dicodinggithub.data.Users
 import kotlinx.android.synthetic.main.layout_user_detail.*
@@ -39,7 +40,6 @@ class DetailUserActivity : AppCompatActivity() {
          val usersUrl = intent.getParcelableExtra("url") as Users
         //memanggil fungsi untuk menampilkan detail profile dari github
         showpDialog()
-        Log.d("jancok_url", usersUrl.toString())
         getUser(usersUrl.url!!)
     }
 
@@ -60,14 +60,19 @@ class DetailUserActivity : AppCompatActivity() {
        tv_company!!.text =  response.body()?.company
        tv_location!!.text = response.body()?.location
        tv_bio!!.text =  response.body()?.bio
-       tv_follower!!.text = "Followers ${response.body()?.followers}"
-       tv_following!!.text = "Following ${response.body()?.following}"
-       tv_follower.setOnClickListener{
-           Toast.makeText(applicationContext, response.body()?.followers.toString()+ "\n Followers", Toast.LENGTH_SHORT ).show()
-       }
-       tv_following.setOnClickListener{
-           Toast.makeText(applicationContext, response.body()?.following.toString()+ "\n Following ", Toast.LENGTH_SHORT ).show()
-       }
+
+       val sectionsPagerAdapter =
+           SectionsPagerAdapter(
+               this,
+               supportFragmentManager
+           )
+       sectionsPagerAdapter.username = response.body()!!.login
+       view_pager.adapter = sectionsPagerAdapter
+       tabs.setupWithViewPager(view_pager)
+       supportActionBar?.elevation = 0f
+
+       tabs.getTabAt(0)?.setText("FOLLOWERS: " + response.body()!!.followers)
+       tabs.getTabAt(1)?.setText("FOLLOWING: " +  response.body()!!.following)
 
        Glide.with(applicationContext)
            .load(response.body()?.avatar_url)
